@@ -4,37 +4,97 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#070b18">
+<meta name="theme-color" content="#080d19">
 <title>NEXORA — Global Earn & Work</title>
+
 <style>
 :root{
- --bg:#070b18;--panel:#10182b;--panel2:#151f36;
- --cyan:#42e8e5;--blue:#6485ff;--text:#f4f7ff;
- --muted:#91a0bb;--line:#ffffff14;--green:#55e6a5;
+ --bg:#080d19;
+ --panel:#111b2e;
+ --panel2:#17243b;
+ --cyan:#42e8e5;
+ --blue:#718cff;
+ --text:#f4f7ff;
+ --muted:#93a2bb;
+ --line:#ffffff14;
+ --green:#55e6a5;
 }
 *{box-sizing:border-box}
-body{margin:0;background:radial-gradient(ellipse at 80% 0%,#172b55 0,transparent 38%),var(--bg);color:var(--text);font-family:Inter,Arial,sans-serif}
+html{scroll-behavior:smooth}
+body{
+ margin:0;background:var(--bg);color:var(--text);
+ font-family:Inter,Arial,sans-serif;
+ background-image:radial-gradient(ellipse at 85% 0%,#1b3158 0,transparent 38%);
+}
 button,input{font:inherit}
 a{color:inherit;text-decoration:none}
 .wrap{width:min(1160px,calc(100% - 32px));margin:auto}
-header{height:75px;border-bottom:1px solid var(--line);display:flex;align-items:center;position:sticky;top:0;background:#070b18eF;backdrop-filter:blur(18px);z-index:5}
-.head{display:flex;align-items:center;justify-content:space-between;width:100%}
-.brand{display:flex;align-items:center;gap:11px;font-size:20px;font-weight:900;letter-spacing:2px}
-.logo{width:39px;height:39px;border-radius:13px;background:linear-gradient(135deg,var(--cyan),var(--blue));display:grid;place-items:center;color:#061321;font-size:23px}
-.brand small{display:block;font-size:9px;color:var(--muted);letter-spacing:2px}
-nav{display:flex;gap:26px;color:#b9c6dc;font-size:13px}
+[hidden]{display:none!important}
+
+/* HEADER */
+header{
+ height:76px;position:sticky;top:0;z-index:10;
+ background:#080d19ed;backdrop-filter:blur(18px);
+ border-bottom:1px solid var(--line);
+}
+.head{height:100%;display:flex;align-items:center;justify-content:space-between;gap:15px}
+.brand{display:flex;align-items:center;gap:11px;font-weight:900;font-size:20px;letter-spacing:2px}
+.logo{
+ width:43px;height:43px;border-radius:14px;
+ display:grid;place-items:center;
+ background:linear-gradient(135deg,var(--cyan),var(--blue));
+ color:#071321;font-size:25px;
+}
+.brand small{display:block;font-size:9px;color:var(--muted);letter-spacing:2px;margin-top:3px}
+nav{display:flex;gap:25px;color:#bdc9dc;font-size:13px}
 nav a:hover{color:var(--cyan)}
-.btn{border:1px solid var(--line);background:#17223a;color:white;padding:12px 18px;border-radius:12px;font-weight:750;cursor:pointer}
-.primary{border:0;background:linear-gradient(110deg,var(--cyan),#7693ff);color:#071321}
-.hero{display:grid;grid-template-columns:1.05fr .95fr;gap:45px;align-items:center;padding:85px 0 70px}
-.eyebrow{display:inline-block;padding:9px 14px;border:1px solid #42e8e544;border-radius:30px;color:var(--cyan);font-size:11px;letter-spacing:1.5px}
+.btn{
+ border:1px solid var(--line);background:#17243b;
+ color:white;padding:12px 18px;border-radius:12px;
+ font-weight:750;cursor:pointer;
+}
+.primary{border:0;background:linear-gradient(110deg,var(--cyan),#8194ff);color:#071321}
+.profile-top{
+ display:flex;align-items:center;gap:9px;
+ padding:7px 12px;border:1px solid #42e8e544;
+ background:#14243a;border-radius:30px;
+ max-width:190px;
+}
+.profile-top .avatar{
+ width:31px;height:31px;border-radius:50%;
+ background:linear-gradient(135deg,var(--cyan),var(--blue));
+ color:#071321;display:grid;place-items:center;font-weight:900;
+}
+.profile-top strong{font-size:12px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+/* PUBLIC HOMEPAGE */
+.hero{
+ display:grid;grid-template-columns:1.05fr .95fr;
+ gap:45px;align-items:center;padding:85px 0 70px;
+}
+.eyebrow{
+ display:inline-block;padding:9px 14px;
+ border:1px solid #42e8e544;border-radius:30px;
+ color:var(--cyan);font-size:11px;letter-spacing:1.5px;
+}
 h1{font-size:clamp(43px,6vw,70px);line-height:1.05;letter-spacing:-3px;margin:23px 0}
-.gradient{background:linear-gradient(100deg,#fff,var(--cyan),#8b9eff);background-clip:text;color:transparent}
+.gradient{
+ background:linear-gradient(100deg,#fff,var(--cyan),#9aaaff);
+ background-clip:text;color:transparent;
+}
 .lead{font-size:16px;color:var(--muted);line-height:1.8;max-width:530px}
 .actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
-.preview{border:1px solid #ffffff20;border-radius:25px;padding:23px;background:linear-gradient(145deg,#172644,#0d1427);box-shadow:0 25px 90px #0008}
+.preview{
+ border:1px solid #ffffff20;border-radius:25px;padding:23px;
+ background:linear-gradient(145deg,#172644,#0d1427);
+ box-shadow:0 25px 90px #0008;
+}
 .preview-top{display:flex;justify-content:space-between;color:#b8c7e1;font-size:12px}
-.balance{margin-top:25px;padding:25px;border-radius:19px;background:linear-gradient(120deg,#123c50,#202d56);border:1px solid #42e8e544}
+.balance{
+ margin-top:25px;padding:25px;border-radius:19px;
+ background:linear-gradient(120deg,#123c50,#202d56);
+ border:1px solid #42e8e544;
+}
 .balance small{color:#c1d6e9}
 .amount{font-size:43px;font-weight:900;margin:12px 0}
 .green{color:var(--green)}
@@ -42,59 +102,195 @@ h1{font-size:clamp(43px,6vw,70px);line-height:1.05;letter-spacing:-3px;margin:23
 .stat{padding:17px;border:1px solid var(--line);background:#ffffff08;border-radius:15px}
 .stat small{color:var(--muted)}
 .stat b{display:block;font-size:21px;margin-top:9px}
-section{padding:55px 0}
+section.public-section{padding:55px 0}
 .section-title{text-align:center;max-width:680px;margin:0 auto 32px}
 .section-title small{color:var(--cyan);letter-spacing:2px;font-weight:800}
 .section-title h2{font-size:34px;margin:13px 0}
 .section-title p,.card p{color:var(--muted);line-height:1.7;font-size:13px}
 .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-.card{padding:23px;background:linear-gradient(145deg,#15213a,#0e1729);border:1px solid var(--line);border-radius:19px}
-.card-icon{width:45px;height:45px;border-radius:14px;background:#42e8e51a;display:grid;place-items:center;font-size:22px}
+.card{
+ padding:23px;background:linear-gradient(145deg,#15213a,#0e1729);
+ border:1px solid var(--line);border-radius:19px;
+}
+.card-icon{
+ width:45px;height:45px;border-radius:14px;
+ background:#42e8e51a;display:grid;place-items:center;font-size:22px;
+}
 .card h3{margin:17px 0 8px}
 .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
 .step{padding:22px;border-left:2px solid var(--cyan);background:#ffffff08;border-radius:0 14px 14px 0}
 .step p{color:var(--muted);font-size:13px;line-height:1.7}
-.cta{padding:35px;border:1px solid #42e8e544;border-radius:22px;background:linear-gradient(110deg,#12384a,#1a2850);display:flex;align-items:center;justify-content:space-between;gap:20px}
-footer{padding:30px 0;border-top:1px solid var(--line);color:var(--muted);font-size:12px;margin-top:50px}
-.auth{max-width:470px;margin:38px auto;padding:26px;background:linear-gradient(145deg,#15223a,#0d1527);border:1px solid #42e8e533;border-radius:22px;box-shadow:0 20px 70px #0006}
+.cta{
+ padding:35px;border:1px solid #42e8e544;border-radius:22px;
+ background:linear-gradient(110deg,#12384a,#1a2850);
+ display:flex;align-items:center;justify-content:space-between;gap:20px;
+}
+
+/* AUTH */
+.auth{
+ max-width:470px;margin:38px auto;padding:26px;
+ background:linear-gradient(145deg,#15223a,#0d1527);
+ border:1px solid #42e8e533;border-radius:22px;
+ box-shadow:0 20px 70px #0006;
+}
 .auth h2{text-align:center}
 .auth p{text-align:center;color:var(--muted);font-size:13px}
 .tabs{display:flex;gap:10px;margin:22px 0}
 .tabs button{flex:1}
-.field{width:100%;padding:14px;margin:7px 0;background:#091326;border:1px solid #ffffff20;border-radius:11px;color:white;outline:none}
+.field{
+ width:100%;padding:14px;margin:7px 0;
+ background:#091326;border:1px solid #ffffff20;
+ border-radius:11px;color:white;outline:none;
+}
 .field:focus{border-color:var(--cyan)}
 .auth form button{width:100%;margin-top:12px}
 #authMessage{color:var(--cyan);overflow-wrap:anywhere}
-#userDashboard{padding:38px 0 60px}
-.dash-head{display:flex;justify-content:space-between;align-items:center;gap:15px;flex-wrap:wrap}
-.dash-head h2{font-size:28px}
-.dash-label{color:var(--cyan);font-size:11px;letter-spacing:2px}
-.dash-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:15px;margin-top:25px}
-.dash-card{padding:23px;background:linear-gradient(145deg,#172641,#0e1729);border:1px solid var(--line);border-radius:19px}
-.dash-card small{color:var(--muted)}
-.dash-card h2{font-size:30px;margin:12px 0}
-.dash-card .card-icon{margin-bottom:15px}
-.workspace{margin-top:35px}
-.account{margin-top:22px}
-[hidden]{display:none!important}
+
+/* PREMIUM MEMBER DASHBOARD */
+#userDashboard{padding:25px 0 65px}
+.dash-head{
+ display:flex;justify-content:space-between;
+ align-items:center;gap:15px;flex-wrap:wrap;
+ padding:12px 0 27px;
+}
+.dash-label{color:var(--cyan);font-size:10px;letter-spacing:2.5px;font-weight:800}
+.dash-head h2{font-size:clamp(24px,4vw,35px);margin:10px 0 5px;letter-spacing:-1px}
 .note{font-size:11px;color:var(--muted);line-height:1.7}
+.dash-head .note{margin:0}
+
+/* WALLET */
+.wallet-hero{
+ position:relative;overflow:hidden;padding:30px;
+ border:1px solid #68eaff40;border-radius:25px;
+ background:linear-gradient(115deg,#123c58 0%,#17336a 52%,#382b70 100%);
+ box-shadow:0 20px 55px #0005;
+}
+.wallet-hero:after{
+ content:"";position:absolute;width:230px;height:230px;
+ right:-65px;top:-100px;border:1px solid #ffffff20;
+ border-radius:50%;box-shadow:0 0 0 25px #ffffff08,0 0 0 55px #ffffff05;
+ pointer-events:none;
+}
+.wallet-top{display:flex;justify-content:space-between;align-items:center;gap:12px;position:relative;z-index:1}
+.wallet-top small{color:#c5d9f2;letter-spacing:1.5px}
+.wallet-chip{padding:8px 12px;border:1px solid #ffffff30;border-radius:30px;font-size:10px;color:#d9faff}
+.wallet-total{position:relative;z-index:1;margin-top:32px}
+.wallet-total small{color:#c5d9f2}
+.wallet-total h1{font-size:clamp(38px,7vw,55px);letter-spacing:-2px;margin:9px 0}
+.wallet-bottom{
+ display:flex;justify-content:space-between;align-items:center;
+ gap:12px;flex-wrap:wrap;margin-top:25px;position:relative;z-index:1;
+}
+.wallet-bottom .note{color:#d0e4f4}
+.wallet-actions{display:flex;gap:9px}
+.wallet-actions span{
+ padding:10px 15px;border-radius:11px;
+ background:#ffffff18;border:1px solid #ffffff30;
+ font-size:12px;font-weight:750;
+}
+
+/* STATISTICS */
+.dash-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:17px 0 32px}
+.dash-stat{padding:19px;background:#111d32;border:1px solid #ffffff12;border-radius:17px}
+.dash-stat small{color:var(--muted);font-size:11px}
+.dash-stat strong{display:block;font-size:25px;margin:10px 0 4px}
+.dash-stat span{font-size:10px;color:#8192ad}
+
+/* DASHBOARD SECTIONS */
+.dash-section-title{
+ display:flex;justify-content:space-between;align-items:center;margin:30px 0 16px;
+}
+.dash-section-title h3{font-size:19px;margin:0}
+.dash-section-title small{color:var(--cyan);font-size:10px;letter-spacing:1px}
+.quick-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.quick-item{
+ min-height:125px;padding:18px 12px;
+ border:1px solid #ffffff12;border-radius:17px;
+ background:linear-gradient(145deg,#15243d,#10192b);
+}
+.quick-icon{
+ width:43px;height:43px;border-radius:14px;
+ display:grid;place-items:center;background:#42e8e51a;
+ font-size:21px;margin-bottom:13px;
+}
+.quick-item b{font-size:13px;display:block}
+.quick-item small{color:var(--muted);font-size:10px;display:block;margin-top:5px}
+.dash-columns{display:grid;grid-template-columns:1.2fr .8fr;gap:16px;margin-top:28px}
+.dash-panel{padding:22px;background:#111b2e;border:1px solid #ffffff12;border-radius:19px;min-width:0}
+.dash-panel h3{margin:0 0 7px;font-size:17px}
+.dash-panel .sub{color:var(--muted);font-size:11px}
+.chart{
+ height:145px;display:flex;align-items:end;justify-content:space-around;
+ gap:10px;padding:18px 5px 0;margin-top:12px;
+ border-bottom:1px solid #ffffff18;
+ background:repeating-linear-gradient(to bottom,transparent 0,transparent 35px,#ffffff09 36px);
+}
+.chart span{
+ width:10%;max-width:38px;border-radius:8px 8px 2px 2px;
+ background:linear-gradient(0deg,#5278ff,#42e8e5);opacity:.8;
+}
+.chart-labels{display:flex;justify-content:space-around;color:var(--muted);font-size:10px;margin-top:10px}
+.activity-empty{padding:22px 10px;text-align:center;color:var(--muted);font-size:12px}
+.activity-empty strong{display:block;font-size:25px;margin-bottom:9px}
+
+/* PROFILE */
+.profile-row{display:flex;align-items:center;gap:14px}
+.profile-avatar{
+ width:48px;height:48px;border-radius:16px;
+ display:grid;place-items:center;
+ background:linear-gradient(135deg,var(--cyan),var(--blue));
+ color:#071321;font-weight:900;font-size:22px;
+}
+.profile-row b{display:block}
+.profile-row small{display:block;color:var(--muted);margin-top:5px}
+.profile-details{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:22px}
+.profile-details div{padding:13px;background:#ffffff08;border-radius:12px;min-width:0;overflow-wrap:anywhere}
+.profile-details small{display:block;color:var(--muted);font-size:10px;margin-bottom:7px}
+.profile-details span{font-size:12px}
+.dash-disclaimer{margin-top:20px;color:var(--muted);font-size:10px;line-height:1.7}
+
+footer{padding:30px 0;border-top:1px solid var(--line);color:var(--muted);font-size:12px;margin-top:50px}
+
+/* MOBILE */
 @media(max-width:800px){
  nav{display:none}
  .hero{grid-template-columns:1fr;padding:55px 0;gap:30px}
- .grid,.steps,.dash-grid{grid-template-columns:1fr 1fr}
+ .grid,.steps{grid-template-columns:1fr 1fr}
 }
-@media(max-width:520px){
+@media(max-width:650px){
  .wrap{width:calc(100% - 26px)}
  header{height:66px}
- .hero{padding-top:42px}
+ .brand{font-size:17px;gap:8px}
+ .logo{width:38px;height:38px}
+ .brand small{font-size:8px}
+ .profile-top{padding:6px 8px;max-width:135px}
+ .profile-top .avatar{width:27px;height:27px}
+ .profile-top strong{font-size:10px}
+ .hero{padding:42px 0}
  h1{font-size:45px;letter-spacing:-2px}
- .grid,.steps,.dash-grid{grid-template-columns:1fr}
+ .grid,.steps{grid-template-columns:1fr}
  .section-title h2{font-size:28px}
  .cta{flex-direction:column;align-items:flex-start}
  .preview{padding:15px}
+ #userDashboard{padding-top:18px}
+ .wallet-hero{padding:23px 20px}
+ .dash-stats{gap:8px}
+ .dash-stat{padding:13px 10px}
+ .dash-stat strong{font-size:19px}
+ .dash-stat small{font-size:9px}
+ .quick-grid{grid-template-columns:repeat(2,1fr)}
+ .dash-columns{grid-template-columns:1fr}
+ .dash-head h2{font-size:25px}
+}
+@media(max-width:370px){
+ .brand{font-size:14px}
+ .brand small{font-size:7px}
+ .profile-top{max-width:110px}
+ .wallet-actions span{padding:9px 10px;font-size:10px}
 }
 </style>
 </head>
+
 <body>
 
 <header>
@@ -103,29 +299,42 @@ footer{padding:30px 0;border-top:1px solid var(--line);color:var(--muted);font-s
    <span class="logo">N</span>
    <span>NEXORA<small>GLOBAL EARN & WORK</small></span>
   </a>
-  <nav>
+
+  <nav id="publicNav">
    <a href="#opportunities">Opportunities</a>
    <a href="#how">How it works</a>
    <a href="#about">About</a>
   </nav>
-  <a class="btn primary" href="#authBox">Get Started ↗</a>
+
+  <a class="btn primary" id="publicGetStarted" href="#authBox">Get Started ↗</a>
+
+  <div class="profile-top" id="topProfile" hidden>
+   <span class="avatar" id="topAvatar">N</span>
+   <strong id="topProfileName">Member</strong>
+  </div>
  </div>
 </header>
 
+<!-- PUBLIC WEBSITE -->
 <div id="publicSite">
+
  <section class="wrap hero">
   <div>
    <span class="eyebrow">✦ THE FUTURE OF DIGITAL OPPORTUNITIES</span>
    <h1>Make your time<br>work <span class="gradient">for you.</span></h1>
-   <p class="lead">Discover sponsored opportunities, partner offers and digital work — all in one global platform. Build skills and track verified rewards transparently.</p>
+   <p class="lead">
+    Discover sponsored opportunities, partner offers and digital work —
+    all in one global platform. Build skills and track verified rewards transparently.
+   </p>
    <div class="actions">
     <a class="btn primary" href="#authBox">Create Account ↗</a>
     <a class="btn" href="#how">Explore Platform</a>
    </div>
    <p class="note" style="margin-top:24px">Transparent rewards · Global experience · Mobile friendly</p>
   </div>
+
   <div class="preview">
-   <div class="preview-top"><b>✦ NEXORA OVERVIEW</b><span class="green">● LIVE PREVIEW</span></div>
+   <div class="preview-top"><b>✦ NEXORA OVERVIEW</b><span class="green">● PREVIEW</span></div>
    <div class="balance">
     <small>ILLUSTRATIVE WALLET BALANCE</small>
     <div class="amount">$128.40</div>
@@ -139,7 +348,7 @@ footer{padding:30px 0;border-top:1px solid var(--line);color:var(--muted);font-s
   </div>
  </section>
 
- <section class="wrap" id="opportunities">
+ <section class="public-section wrap" id="opportunities">
   <div class="section-title">
    <small>WAYS TO GET STARTED</small>
    <h2>Opportunities that create value.</h2>
@@ -152,7 +361,7 @@ footer{padding:30px 0;border-top:1px solid var(--line);color:var(--muted);font-s
   </div>
  </section>
 
- <section class="wrap" id="how">
+ <section class="public-section wrap" id="how">
   <div class="section-title">
    <small>SIMPLE & TRANSPARENT</small>
    <h2>How NEXORA will work.</h2>
@@ -165,26 +374,33 @@ footer{padding:30px 0;border-top:1px solid var(--line);color:var(--muted);font-s
   </div>
  </section>
 
- <section class="wrap" id="about">
+ <section class="public-section wrap" id="about">
   <div class="cta">
    <div><h2>Build something global.</h2><p class="note">NEXORA — discover digital opportunities.</p></div>
    <a class="btn primary" href="#authBox">Join NEXORA ↗</a>
   </div>
-  <p class="note" style="margin-top:18px">NEXORA is currently a design prototype. Campaigns, reward verification and withdrawals are not active. No earnings are guaranteed.</p>
+  <p class="note" style="margin-top:18px">
+   NEXORA is currently a design prototype. Campaigns, reward verification and withdrawals are not active.
+   No earnings are guaranteed.
+  </p>
  </section>
 
+ <!-- AUTHENTICATION -->
  <section id="authBox" class="auth">
   <h2>Welcome to <span class="gradient">NEXORA</span></h2>
   <p>Create your account or sign in to continue.</p>
+
   <div class="tabs">
    <button type="button" id="loginTab" class="btn primary">Login</button>
    <button type="button" id="signupTab" class="btn">Register</button>
   </div>
+
   <form id="loginForm">
    <input class="field" id="loginEmail" type="email" placeholder="Email address" required>
    <input class="field" id="loginPassword" type="password" placeholder="Password" required>
    <button class="btn primary" type="submit">Sign In ↗</button>
   </form>
+
   <form id="signupForm" hidden>
    <input class="field" id="fullName" placeholder="Full name" required>
    <input class="field" id="username" placeholder="Username" required>
@@ -192,69 +408,147 @@ footer{padding:30px 0;border-top:1px solid var(--line);color:var(--muted);font-s
    <input class="field" id="signupPassword" type="password" minlength="6" placeholder="Password (minimum 6 characters)" required>
    <button class="btn primary" type="submit">Create Account ↗</button>
   </form>
+
   <p id="authMessage" role="status"></p>
  </section>
 </div>
 
+<!-- MEMBER DASHBOARD -->
 <section id="userDashboard" class="wrap" hidden>
+
  <div class="dash-head">
   <div>
-   <div class="dash-label">NEXORA MEMBER AREA</div>
-   <h2>Welcome, <span id="dashName">Member</span>!</h2>
-   <p class="note">Your personal workspace</p>
+   <div class="dash-label">✦ YOUR NEXORA WORKSPACE</div>
+   <h2>Welcome back, <span id="dashName">Member</span>!</h2>
+   <p class="note">Your global opportunities start here.</p>
   </div>
   <button class="btn" id="logoutBtn">Sign Out ↗</button>
  </div>
 
- <div class="dash-grid">
-  <div class="dash-card">
-   <div class="card-icon">💰</div>
-   <small>Wallet Balance</small>
-   <h2 class="gradient">$0.00</h2>
-   <small>Wallet setup pending</small>
+ <!-- WALLET -->
+ <div class="wallet-hero">
+  <div class="wallet-top">
+   <small>✦ NEXORA DIGITAL WALLET</small>
+   <span class="wallet-chip">● DEMO ACCOUNT</span>
   </div>
-  <div class="dash-card">
-   <div class="card-icon">📈</div>
-   <small>Total Earnings</small>
-   <h2>$0.00</h2>
-   <small>Not active yet</small>
+  <div class="wallet-total">
+   <small>AVAILABLE BALANCE</small>
+   <h1>$0.00</h1>
+   <small>USD · Wallet setup pending</small>
   </div>
-  <div class="dash-card">
-   <div class="card-icon">⏳</div>
-   <small>Pending Rewards</small>
-   <h2>$0.00</h2>
-   <small>Not active yet</small>
-  </div>
- </div>
-
- <div class="workspace">
-  <div class="section-title" style="text-align:left;margin:0 0 20px">
-   <small>YOUR WORKSPACE</small>
-   <h2>Explore NEXORA</h2>
-  </div>
-  <div class="grid">
-   <div class="card"><div class="card-icon">✦</div><h3>Available Tasks</h3><p>Sponsored campaigns and digital work.</p><p style="color:var(--cyan)">Coming Soon</p></div>
-   <div class="card"><div class="card-icon">💳</div><h3>Withdraw</h3><p>Payment options after secure payment setup.</p><p style="color:var(--cyan)">Coming Soon</p></div>
-   <div class="card"><div class="card-icon">📜</div><h3>Transaction History</h3><p>Track verified rewards and transactions.</p><p style="color:var(--cyan)">Coming Soon</p></div>
+  <div class="wallet-bottom">
+   <span class="note">Your financial overview</span>
+   <div class="wallet-actions">
+    <span>＋ Deposit</span>
+    <span>↗ Withdraw</span>
+   </div>
   </div>
  </div>
 
- <div class="card account">
-  <h3>Account Information</h3>
-  <p>Email: <span id="dashEmail">—</span></p>
-  <p>Username: <span id="dashUsername">—</span></p>
-  <p>Account Status: <span class="green">Signed In</span></p>
+ <!-- STATS -->
+ <div class="dash-stats">
+  <div class="dash-stat">
+   <small>TOTAL EARNINGS</small>
+   <strong>$0.00</strong>
+   <span>Not active yet</span>
+  </div>
+  <div class="dash-stat">
+   <small>PENDING</small>
+   <strong>$0.00</strong>
+   <span>Under review</span>
+  </div>
+  <div class="dash-stat">
+   <small>COMPLETED</small>
+   <strong>0</strong>
+   <span>Verified tasks</span>
+  </div>
  </div>
- <p class="note">Dashboard preview only. Earnings, rewards and withdrawals are not active yet.</p>
+
+ <!-- QUICK ACCESS -->
+ <div class="dash-section-title">
+  <h3>Quick Access</h3>
+  <small>YOUR SERVICES</small>
+ </div>
+
+ <div class="quick-grid">
+  <div class="quick-item"><div class="quick-icon">✦</div><b>Explore Tasks</b><small>Find opportunities</small></div>
+  <div class="quick-item"><div class="quick-icon">⌘</div><b>Campaigns</b><small>Sponsored offers</small></div>
+  <div class="quick-item"><div class="quick-icon">↗</div><b>Withdraw</b><small>Payment setup pending</small></div>
+  <div class="quick-item"><div class="quick-icon">▤</div><b>History</b><small>View transactions</small></div>
+ </div>
+
+ <!-- ANALYTICS -->
+ <div class="dash-section-title">
+  <h3>Performance Overview</h3>
+  <small>ANALYTICS</small>
+ </div>
+
+ <div class="dash-columns">
+  <div class="dash-panel">
+   <h3>Earnings Overview</h3>
+   <div class="sub">Your earnings activity will appear here.</div>
+   <div class="chart">
+    <span style="height:18%"></span>
+    <span style="height:35%"></span>
+    <span style="height:25%"></span>
+    <span style="height:50%"></span>
+    <span style="height:38%"></span>
+    <span style="height:65%"></span>
+    <span style="height:45%"></span>
+   </div>
+   <div class="chart-labels">
+    <span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span>
+    <span>Fri</span><span>Sat</span><span>Sun</span>
+   </div>
+   <p class="note">Illustrative chart only — no real earnings data yet.</p>
+  </div>
+
+  <div class="dash-panel">
+   <h3>Recent Activity</h3>
+   <div class="sub">Your latest account updates</div>
+   <div class="activity-empty">
+    <strong>◷</strong>
+    No activity yet.
+    <p>Your verified activities will appear here.</p>
+   </div>
+  </div>
+ </div>
+
+ <!-- ACCOUNT -->
+ <div class="dash-section-title">
+  <h3>Your Account</h3>
+  <small>PROFILE DETAILS</small>
+ </div>
+
+ <div class="dash-panel">
+  <div class="profile-row">
+   <div class="profile-avatar" id="profileAvatar">N</div>
+   <div>
+    <b id="profileName">NEXORA Member</b>
+    <small>Member Account · Signed In</small>
+   </div>
+  </div>
+  <div class="profile-details">
+   <div><small>EMAIL ADDRESS</small><span id="dashEmail">—</span></div>
+   <div><small>USERNAME</small><span id="dashUsername">—</span></div>
+  </div>
+ </div>
+
+ <p class="dash-disclaimer">
+  NEXORA is currently a design prototype. Tasks, earnings, reward verification and withdrawals are not active.
+  No earnings or payments are guaranteed.
+ </p>
 </section>
 
 <footer>
  <div class="wrap">© 2026 NEXORA. All rights reserved. · Global Earn · Work · Rewards</div>
 </footer>
 
+<!-- SUPABASE -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 const SUPABASE_URL = 'https://ycheiilgfzleupubmdea.supabase.co';
+
 const SUPABASE_KEY = 'sb_publishable_KU2hlO054k2IGf8iRn4uUw_6yharUrx';
 
 const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
@@ -267,19 +561,37 @@ const message = document.getElementById('authMessage');
 
 function showDashboard(user) {
  if (!user) return;
+
+ const fullName = user.user_metadata?.full_name || 'Member';
+ const username = user.user_metadata?.username || '—';
+ const firstLetter = fullName.trim().charAt(0).toUpperCase() || 'N';
+
  document.getElementById('publicSite').hidden = true;
  document.getElementById('userDashboard').hidden = false;
- document.getElementById('dashName').textContent =
-  user.user_metadata?.full_name || 'Member';
+
+ document.getElementById('publicNav').hidden = true;
+ document.getElementById('publicGetStarted').hidden = true;
+ document.getElementById('topProfile').hidden = false;
+ document.getElementById('topProfileName').textContent = fullName;
+ document.getElementById('topAvatar').textContent = firstLetter;
+
+ document.getElementById('dashName').textContent = fullName;
+ document.getElementById('profileName').textContent = fullName;
+ document.getElementById('profileAvatar').textContent = firstLetter;
  document.getElementById('dashEmail').textContent = user.email || '—';
- document.getElementById('dashUsername').textContent =
-  user.user_metadata?.username || '—';
+ document.getElementById('dashUsername').textContent = username;
+
  window.scrollTo(0,0);
 }
 
 function showPublicSite() {
  document.getElementById('userDashboard').hidden = true;
  document.getElementById('publicSite').hidden = false;
+
+ document.getElementById('publicNav').hidden = false;
+ document.getElementById('publicGetStarted').hidden = false;
+ document.getElementById('topProfile').hidden = true;
+
  window.scrollTo(0,0);
 }
 
@@ -302,15 +614,18 @@ signupTab.onclick = () => {
 loginForm.onsubmit = async (e) => {
  e.preventDefault();
  message.textContent = 'Signing in...';
+
  try {
   const {data,error} = await db.auth.signInWithPassword({
    email:document.getElementById('loginEmail').value.trim(),
    password:document.getElementById('loginPassword').value
   });
+
   if(error) {
    message.textContent = error.message;
    return;
   }
+
   showDashboard(data.user);
  } catch(err) {
   message.textContent = err.message || 'Login failed. Please try again.';
@@ -320,6 +635,7 @@ loginForm.onsubmit = async (e) => {
 signupForm.onsubmit = async (e) => {
  e.preventDefault();
  message.textContent = 'Creating account...';
+
  try {
   const {data,error} = await db.auth.signUp({
    email:document.getElementById('signupEmail').value.trim(),
@@ -332,10 +648,12 @@ signupForm.onsubmit = async (e) => {
     }
    }
   });
+
   if(error) {
    message.textContent = error.message;
    return;
   }
+
   if(data.session) {
    showDashboard(data.user);
   } else {
@@ -348,10 +666,12 @@ signupForm.onsubmit = async (e) => {
 
 document.getElementById('logoutBtn').onclick = async () => {
  const {error} = await db.auth.signOut();
+
  if(error) {
   alert(error.message);
   return;
  }
+
  showPublicSite();
  message.textContent = 'You have signed out.';
 };
@@ -369,8 +689,11 @@ db.auth.getSession().then(({data,error}) => {
   console.error(error.message);
   return;
  }
- if(data.session?.user) showDashboard(data.session.user);
+ if(data.session?.user) {
+  showDashboard(data.session.user);
+ }
 });
 </script>
+
 </body>
 </html>
