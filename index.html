@@ -178,6 +178,20 @@ signupTab.onclick = () => {
 };
 
 loginForm.onsubmit = async (e) => {
+    e.preventDefault();
+  message.textContent = 'Signing in...';
+
+  const { data, error } = await db.auth.signInWithPassword({
+    email: document.getElementById('loginEmail').value.trim(),
+    password: document.getElementById('loginPassword').value
+  });
+
+  if (error) {
+    message.textContent = error.message;
+  } else {
+    showDashboard(data.user);
+  }
+};
 </script>
 </body>
 </html>
