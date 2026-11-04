@@ -26,6 +26,34 @@ footer{padding:30px 0 40px;border-top:1px solid var(--line);margin-top:65px;colo
 </head>
 <body>
 <header><div class="wrap" style="display:flex;align-items:center;justify-content:space-between"><a class="brand" href="#"><span class="logo">N</span><span>NEXORA<small>GLOBAL EARN & WORK</small></span></a><nav><a href="#opportunities">Opportunities</a><a href="#how">How it works</a><a href="#about">About</a></nav><div class="actions"><a class="btn" href="#how">Explore</a><a class="btn primary" href="mailto:hello@nexora.example?subject=NEXORA%20early%20access">Get Started ↗</a><button class="btn menu" onclick="document.getElementById('opportunities').scrollIntoView()">☰</button></div></div></header>
+<section id="authBox" style="max-width:480px;margin:35px auto;padding:25px;background:#0d1b2c;border:1px solid #45e4ed35;border-radius:20px;box-shadow:0 15px 50px #0005">
+
+<h2 style="text-align:center;margin-top:0">Welcome to <span style="color:#45e4ed">NEXORA</span></h2>
+
+<p style="text-align:center;color:#8da4bc;font-size:13px">Create your account or sign in</p>
+
+<div style="display:flex;gap:10px;margin:22px 0">
+<button type="button" id="loginTab" class="btn primary" style="flex:1">Login</button>
+<button type="button" id="signupTab" class="btn" style="flex:1">Register</button>
+</div>
+
+<form id="loginForm">
+<input id="loginEmail" type="email" placeholder="Email address" required style="width:100%;padding:14px;margin:7px 0;background:#102238;color:white;border:1px solid #29445d;border-radius:10px">
+<input id="loginPassword" type="password" placeholder="Password" required style="width:100%;padding:14px;margin:7px 0;background:#102238;color:white;border:1px solid #29445d;border-radius:10px">
+<button class="btn primary" type="submit" style="width:100%;margin-top:12px">Sign In</button>
+</form>
+
+<form id="signupForm" hidden>
+<input id="fullName" type="text" placeholder="Full name" required style="width:100%;padding:14px;margin:7px 0;background:#102238;color:white;border:1px solid #29445d;border-radius:10px">
+<input id="username" type="text" placeholder="Username" required style="width:100%;padding:14px;margin:7px 0;background:#102238;color:white;border:1px solid #29445d;border-radius:10px">
+<input id="signupEmail" type="email" placeholder="Email address" required style="width:100%;padding:14px;margin:7px 0;background:#102238;color:white;border:1px solid #29445d;border-radius:10px">
+<input id="signupPassword" type="password" placeholder="Create password (minimum 6 characters)" minlength="6" required style="width:100%;padding:14px;margin:7px 0;background:#102238;color:white;border:1px solid #29445d;border-radius:10px">
+<button class="btn primary" type="submit" style="width:100%;margin-top:12px">Create Account</button>
+</form>
+
+<p id="authMessage" style="text-align:center;color:#45e4ed;font-size:13px"></p>
+
+</section>
 <main class="wrap">
 <div class="hero">
 <div><div class="eyebrow"><i class="dot"></i> A NEW WAY TO EARN ONLINE</div><h1>Make your time<br>work <span class="shine">for you.</span></h1><p class="lead">Discover sponsored opportunities, partner offers and digital work — all in one simple global platform. Build skills, complete real tasks and track your rewards transparently.</p><div class="hero-buttons"><a class="btn primary" href="#opportunities">Explore opportunities&nbsp; ↗</a><a class="btn" href="#how">How it works</a></div><div class="trust"><span>Transparent rewards</span><span>Global-first experience</span><span>Mobile friendly</span></div></div>
@@ -42,5 +70,75 @@ footer{padding:30px 0 40px;border-top:1px solid var(--line);margin-top:65px;colo
 <footer><div class="wrap foot"><span>© 2026 NEXORA. All rights reserved.</span><span>Global Earn • Work • Rewards</span></div>
 </footer>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+const SUPABASE_URL = 'https://ycheiilgfzleupubmdea.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_KU2hlO054k2IGf8iRn4uUw_6yharUrx';
+
+const db = window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_KEY
+);
+
+const loginForm = document.getElementById('loginForm');
+const signupForm = document.getElementById('signupForm');
+const loginTab = document.getElementById('loginTab');
+const signupTab = document.getElementById('signupTab');
+const message = document.getElementById('authMessage');
+
+loginTab.onclick = () => {
+  loginForm.hidden = false;
+  signupForm.hidden = true;
+  loginTab.className = 'btn primary';
+  signupTab.className = 'btn';
+  message.textContent = '';
+};
+
+signupTab.onclick = () => {
+  loginForm.hidden = true;
+  signupForm.hidden = false;
+  signupTab.className = 'btn primary';
+  loginTab.className = 'btn';
+  message.textContent = '';
+};
+
+loginForm.onsubmit = async (e) => {
+  e.preventDefault();
+  message.textContent = 'Signing in...';
+
+  const { error } = await db.auth.signInWithPassword({
+    email: document.getElementById('loginEmail').value.trim(),
+    password: document.getElementById('loginPassword').value
+  });
+
+  message.textContent = error
+    ? error.message
+    : 'Login successful!';
+};
+
+signupForm.onsubmit = async (e) => {
+  e.preventDefault();
+  message.textContent = 'Creating account...';
+
+  const { data, error } = await db.auth.signUp({
+    email: document.getElementById('signupEmail').value.trim(),
+    password: document.getElementById('signupPassword').value,
+    options: {
+      data: {
+        full_name: document.getElementById('fullName').value.trim(),
+        username: document.getElementById('username').value.trim()
+      }
+    }
+  });
+
+  if (error) {
+    message.textContent = error.message;
+  } else if (data.session) {
+    message.textContent = 'Account created successfully!';
+  } else {
+    message.textContent =
+      'Account created! Please check your email to confirm.';
+  }
+};
+</script>
 </body>
 </html>
