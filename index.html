@@ -84,39 +84,8 @@ const loginForm = document.getElementById('loginForm');
 const signupForm = document.getElementById('signupForm');
 let pendingEmail = '';
 
-const otpBox = document.createElement('div');
-otpBox.innerHTML = `
-  <input id="emailOtp" type="text"
-    placeholder="Enter 6-digit email code"
-    maxlength="6"
-    inputmode="numeric"
-    style="display:none;width:100%;padding:14px;margin-top:12px;border-radius:10px;">
-  <button id="verifyOtpBtn" type="button"
-    style="display:none;width:100%;padding:14px;margin-top:10px;">
-    Verify Email
-  </button>
-`;
-document.getElementById('signupForm').appendChild(otpBox);
-document.getElementById('verifyOtpBtn').addEventListener('click', async () => {
-  const token = document.getElementById('emailOtp').value.trim();
 
-  if (!/^\d{6}$/.test(token)) {
-    authMessage.textContent = 'Enter the 6-digit code.';
-    return;
-  }
 
-  const { data, error } = await db.auth.verifyOtp({
-    email: pendingEmail,
-    token: token,
-    type: 'signup'
-  });
-
-  if (error) {
-    authMessage.textContent = error.message;
-  } else {
-    authMessage.textContent = 'Email verified successfully!';
-  }
-});
 const loginTab = document.getElementById('loginTab');
 const signupTab = document.getElementById('signupTab');
 const message = document.getElementById('authMessage');
@@ -154,11 +123,8 @@ loginForm.onsubmit = async (e) => {
 signupForm.onsubmit = async (e) => {
   e.preventDefault();
   message.textContent = 'Creating account...';
-
-  pendingEmail = document.getElementById('signupEmail').value.trim();
-
   const { data, error } = await db.auth.signUp({
-    email: pendingEmail,
+email: document.getElementById('signupEmail').value.trim(),
     password: document.getElementById('signupPassword').value,
     options: {
       emailRedirectTo: 'https://bdabutaher37-cmd.github.io/nexora-platform/',
@@ -169,14 +135,13 @@ signupForm.onsubmit = async (e) => {
     }
   });
 
-  if (error) {
+    if (error) {
     message.textContent = error.message;
   } else if (data.session) {
     message.textContent = 'Account created successfully!';
   } else {
-    document.getElementById('emailOtp').style.display = 'block';
-    document.getElementById('verifyOtpBtn').style.display = 'block';
-    message.textContent = 'Check your email and enter the 6-digit code.';
+    message.textContent =
+      'Account created! Please check your email and click Confirm email address.';
   }
 };
 </script>
