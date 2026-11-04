@@ -82,6 +82,92 @@ const db = window.supabase.createClient(
 
 const loginForm = document.getElementById('loginForm');
 const signupForm = document.getElementById('signupForm');
+const loginTab = document.getElementById('loginTab');
+const signupTab = document.getElementById('signupTab');
+const message = document.getElementById('authMessage');
+
+loginTab.onclick = () => {
+  loginForm.hidden = false;
+  signupForm.hidden = true;
+  loginTab.className = 'btn primary';
+  signupTab.className = 'btn';
+  message.textContent = '';
+};
+
+signupTab.onclick = () => {
+  loginForm.hidden = true;
+  signupForm.hidden = false;
+  signupTab.className = 'btn primary';
+  loginTab.className = 'btn';
+  message.textContent = '';
+};
+
+loginForm.onsubmit = async (e) => {
+  e.preventDefault();
+
+  message.textContent = 'Signing in...';
+
+  const { error } = await db.auth.signInWithPassword({
+    email: document.getElementById('loginEmail').value.trim(),
+    password: document.getElementById('loginPassword').value
+  });
+
+  if (error) {
+    message.textContent = error.message;
+  } else {
+    message.textContent = 'Login successful!';
+  }
+};
+
+signupForm.onsubmit = async (e) => {
+  e.preventDefault();
+
+  message.textContent = 'Creating account...';
+
+  const email = document.getElementById('signupEmail').value.trim();
+
+  const { data, error } = await db.auth.signUp({
+    email: email,
+    password: document.getElementById('signupPassword').value,
+
+    options: {
+      emailRedirectTo:
+        'https://bdabutaher37-cmd.github.io/nexora-platform/',
+
+      data: {
+        full_name: document.getElementById('fullName').value.trim(),
+        username: document.getElementById('username').value.trim()
+      }
+    }
+  });
+
+  if (error) {
+    message.textContent = error.message;
+  } else if (data.session) {
+    message.textContent = 'Account created successfully!';
+  } else {
+    message.textContent =
+      'Account created! Please check your email and click Confirm email address.';
+  }
+};
+
+db.auth.onAuthStateChange((event, session) => {
+  if (event === 'SIGNED_IN' && session) {
+    message.textContent = 'Email verified! You are now signed in.';
+  }
+});
+</script>
+<script>
+const SUPABASE_URL = 'https://ycheiilgfzleupubmdea.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_KU2hlO054k2IGf8iRn4uUw_6yharUrx';
+
+const db = window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_KEY
+);
+
+const loginForm = document.getElementById('loginForm');
+const signupForm = document.getElementById('signupForm');
 let pendingEmail = '';
 
 
