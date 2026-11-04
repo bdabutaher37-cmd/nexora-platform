@@ -161,6 +161,7 @@ signupForm.onsubmit = async (e) => {
     email: pendingEmail,
     password: document.getElementById('signupPassword').value,
     options: {
+      emailRedirectTo: 'https://bdabutaher37-cmd.github.io/nexora-platform/',
       data: {
         full_name: document.getElementById('fullName').value.trim(),
         username: document.getElementById('username').value.trim()
