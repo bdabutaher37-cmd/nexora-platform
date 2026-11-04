@@ -177,6 +177,24 @@ signupTab.onclick = () => {
   message.textContent = '';
 };
   console.log('NEXORA LOGIN SCRIPT READY');
+  function showDashboard(user) {
+  if (!user) return;
+
+  document.getElementById('authBox').hidden = true;
+  document.querySelector('main').hidden = true;
+  document.querySelector('footer').hidden = true;
+
+  document.getElementById('userDashboard').hidden = false;
+
+  document.getElementById('dashName').textContent =
+    user.user_metadata?.full_name || 'Member';
+
+  document.getElementById('dashEmail').textContent =
+    user.email || '—';
+
+  document.getElementById('dashUsername').textContent =
+    user.user_metadata?.username || '—';
+  }
 
 loginForm.onsubmit = async (e) => {
   e.preventDefault();
