@@ -178,59 +178,6 @@ signupTab.onclick = () => {
 };
 
 loginForm.onsubmit = async (e) => {
-  e.preventDefault();
-
-  message.textContent = 'Signing in...';
-
-  const { error } = await db.auth.signInWithPassword({
-    email: document.getElementById('loginEmail').value.trim(),
-    password: document.getElementById('loginPassword').value
-  });
-
-  if (error) {
-    message.textContent = error.message;
-  } else {
-    message.textContent = 'Login successful!';
-  }
-};
-
-signupForm.onsubmit = async (e) => {
-  e.preventDefault();
-
-  message.textContent = 'Creating account...';
-
-  const email = document.getElementById('signupEmail').value.trim();
-
-  const { data, error } = await db.auth.signUp({
-    email: email,
-    password: document.getElementById('signupPassword').value,
-
-    options: {
-      emailRedirectTo:
-        'https://bdabutaher37-cmd.github.io/nexora-platform/',
-
-      data: {
-        full_name: document.getElementById('fullName').value.trim(),
-        username: document.getElementById('username').value.trim()
-      }
-    }
-  });
-
-  if (error) {
-    message.textContent = error.message;
-  } else if (data.session) {
-    message.textContent = 'Account created successfully!';
-  } else {
-    message.textContent =
-      'Account created! Please check your email and click Confirm email address.';
-  }
-};
-
-db.auth.onAuthStateChange((event, session) => {
-  if (event === 'SIGNED_IN' && session) {
-    message.textContent = 'Email verified! You are now signed in.';
-  }
-});
 </script>
 </body>
 </html>
