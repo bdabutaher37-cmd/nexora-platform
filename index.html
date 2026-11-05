@@ -606,7 +606,7 @@ const loginTab = document.getElementById('loginTab');
 const signupTab = document.getElementById('signupTab');
 const message = document.getElementById('authMessage');
 
-function showDashboard(user) {
+async function showDashboard(user) {
  if (!user) return;
 
  const fullName = user.user_metadata?.full_name || 'Member';
