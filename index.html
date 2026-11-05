@@ -600,6 +600,17 @@ function showDashboard(user) {
 
  document.getElementById('publicSite').hidden = true;
  document.getElementById('userDashboard').hidden = false;
+ // TEMPORARY TEST BUTTON
+if (!document.getElementById('nexoraTestBtn')) {
+  const testBtn = document.createElement('button');
+  testBtn.id = 'nexoraTestBtn';
+  testBtn.textContent = 'Test Task Verification';
+  testBtn.style.cssText =
+    'display:block;margin:20px auto;padding:15px 22px;background:#16cbd0;color:#07111f;border:0;border-radius:12px;font-weight:bold;font-size:16px;';
+  testBtn.onclick = window.testNexoraTask;
+
+  document.getElementById('userDashboard').appendChild(testBtn);
+}
 
  document.getElementById('publicNav').hidden = true;
  document.getElementById('publicGetStarted').hidden = true;
