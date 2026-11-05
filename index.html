@@ -574,7 +574,17 @@ async function checkTask(taskId) {
 
   return data;
 }
-
+// TEMPORARY TASK TEST
+window.testNexoraTask = async function () {
+  try {
+    const result = await checkTask(
+      'dbd43e33-ac08-4ae6-b2cf-ec09fb2c357f'
+    );
+    alert(JSON.stringify(result));
+  } catch (error) {
+    alert('Task Test Error: ' + error.message);
+  }
+};
 const loginForm = document.getElementById('loginForm');
 const signupForm = document.getElementById('signupForm');
 const loginTab = document.getElementById('loginTab');
