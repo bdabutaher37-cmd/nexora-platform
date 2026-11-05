@@ -615,6 +615,23 @@ function showDashboard(user) {
 
  document.getElementById('publicSite').hidden = true;
  document.getElementById('userDashboard').hidden = false;
+ // NEXORA OWNER ADMIN ACCESS
+const isOwner = await checkOwnerAccess(user);
+
+let adminBtn = document.getElementById('nexoraAdminBtn');
+
+if (isOwner) {
+  if (!adminBtn) {
+    adminBtn = document.createElement('button');
+    adminBtn.id = 'nexoraAdminBtn';
+    adminBtn.textContent = 'Owner Admin Panel';
+    adminBtn.style.cssText =
+      'display:block;margin:20px auto;padding:14px 22px;background:#16cbd0;color:#07111f;border:0;border-radius:12px;font-weight:bold;';
+    document.getElementById('userDashboard').appendChild(adminBtn);
+  }
+} else if (adminBtn) {
+  adminBtn.remove();
+}
  // TEMPORARY TEST BUTTON
 if (!document.getElementById('nexoraTestBtn')) {
   const testBtn = document.createElement('button');
