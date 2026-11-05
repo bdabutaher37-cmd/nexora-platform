@@ -574,6 +574,21 @@ async function checkTask(taskId) {
 
   return data;
 }
+ // NEXORA OWNER ACCESS CHECK
+async function checkOwnerAccess(user) {
+  const { data, error } = await db
+    .from('platform_admins')
+    .select('role')
+    .eq('user_id', user.id)
+    .maybeSingle();
+
+  if (error) {
+    console.error('Owner check failed:', error.message);
+    return false;
+  }
+
+  return data?.role === 'owner';
+}
 // TEMPORARY TASK TEST
 window.testNexoraTask = async function () {
   try {
