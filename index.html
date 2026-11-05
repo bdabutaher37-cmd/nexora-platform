@@ -552,6 +552,28 @@ const SUPABASE_URL = 'https://ycheiilgfzleupubmdea.supabase.co';
 const SUPABASE_KEY = 'sb_publishable_KU2hlO054k2IGf8iRn4uUw_6yharUrx';
 
 const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+// NEXORA SECURE TASK FUNCTION
+async function checkTask(taskId) {
+  const { data: { session }, error: sessionError } =
+    await db.auth.getSession();
+
+  if (sessionError || !session) {
+    throw new Error('Please login first');
+  }
+
+  const { data, error } = await db.functions.invoke(
+    'complete-task',
+    {
+      body: { task_id: taskId }
+    }
+  );
+
+  if (error) {
+    throw error;
+  }
+
+  return data;
+}
 
 const loginForm = document.getElementById('loginForm');
 const signupForm = document.getElementById('signupForm');
