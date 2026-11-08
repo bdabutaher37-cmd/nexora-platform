@@ -476,7 +476,47 @@ footer{padding:30px 0;border-top:1px solid var(--line);color:var(--muted);font-s
   <div class="quick-item"><div class="quick-icon">↗</div><b>Withdraw</b><small>Payment setup pending</small></div>
   <div class="quick-item"><div class="quick-icon">▤</div><b>History</b><small>View transactions</small></div>
  </div>
+<!-- PUBLISHER MARKETPLACE -->
+<section class="card" id="publisherMarketplace" style="margin-top:20px;">
+  <div class="card-icon">＋</div>
+  <h3>Publisher Marketplace</h3>
+  <p>Publish paid tasks and manage your campaigns.</p>
 
+  <button class="btn" id="postTaskBtn" type="button">
+    Post a Task
+  </button>
+</section>
+ <!-- POST TASK FORM -->
+<div id="postTaskForm" class="card" hidden style="margin-top:20px;">
+  <h3>Create a New Task</h3>
+
+  <input id="taskTitle" type="text"
+    placeholder="Task Title" maxlength="150">
+
+  <textarea id="taskDescription"
+    placeholder="Task Description"></textarea>
+
+  <input id="taskReward" type="number"
+    placeholder="Worker Reward (USD)" min="0.01" step="0.01">
+
+  <select id="taskCategory">
+    <option value="sponsored">Sponsored</option>
+    <option value="affiliate">Affiliate</option>
+    <option value="freelance">Freelance</option>
+  </select>
+
+  <input id="taskUrl" type="url"
+    placeholder="Task Target URL">
+
+  <input id="taskSlots" type="number"
+    placeholder="Number of Workers" min="1" max="10000">
+
+  <button class="btn" id="submitTaskBtn" type="button">
+    Publish Task
+  </button>
+
+  <p id="taskPostMessage"></p>
+</div>
  <!-- ANALYTICS -->
  <div class="dash-section-title">
   <h3>Performance Overview</h3>
@@ -574,6 +614,67 @@ async function checkTask(taskId) {
 
   return data;
 }
+ // NEXORA PUBLISHER TASK SYSTEM
+
+document.getElementById('postTaskBtn')
+.addEventListener('click', () => {
+  const form = document.getElementById('postTaskForm');
+  form.hidden = !form.hidden;
+});
+
+document.getElementById('submitTaskBtn')
+.addEventListener('click', async () => {
+  const message = document.getElementById('taskPostMessage');
+  const button = document.getElementById('submitTaskBtn');
+
+  const title = document.getElementById('taskTitle').value.trim();
+  const description = document.getElementById('taskDescription').value.trim();
+  const reward = Number(document.getElementById('taskReward').value);
+  const category = document.getElementById('taskCategory').value;
+  const url = document.getElementById('taskUrl').value.trim();
+  const slots = Number(document.getElementById('taskSlots').value);
+
+  if (!title || !reward || reward <= 0 ||
+      !url.startsWith('https://') && !url.startsWith('http://') ||
+      !Number.isInteger(slots) || slots < 1 || slots > 10000) {
+    message.textContent = 'Please enter valid task details.';
+    return;
+  }
+
+  button.disabled = true;
+  message.textContent = 'Publishing task...';
+
+  try {
+    const { data, error } = await db.rpc(
+      'post_task_with_wallet',
+      {
+        p_title: title,
+        p_description: description,
+        p_reward: reward,
+        p_category: category,
+        p_target_url: url,
+        p_slots: slots
+      }
+    );
+
+    if (error) throw error;
+
+    message.textContent =
+      `Task published! Total budget: $${data.gross_budget} | Commission: $${data.commission}`;
+
+    document.getElementById('taskTitle').value = '';
+    document.getElementById('taskDescription').value = '';
+    document.getElementById('taskReward').value = '';
+    document.getElementById('taskUrl').value = '';
+    document.getElementById('taskSlots').value = '';
+
+  } catch (error) {
+    console.error('Task publishing error:', error);
+    message.textContent = error.message || 'Task publishing failed.';
+  } finally {
+    button.disabled = false;
+  }
+});
  // NEXORA OWNER ACCESS CHECK
 async function checkOwnerAccess(user) {
   const { data, error } = await db
