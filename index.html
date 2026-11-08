@@ -733,20 +733,88 @@ if (isOwner) {
 } else if (adminBtn) {
   adminBtn.remove();
 }
- // TEMPORARY TEST BUTTON
-if (!document.getElementById('nexoraTestBtn')) {
-  const testBtn = document.createElement('button');
-  testBtn.id = 'nexoraTestBtn';
-  testBtn.textContent = 'Test Task Verification';
-  testBtn.style.cssText =
-    'display:block;margin:20px auto;padding:15px 22px;background:#16cbd0;color:#07111f;border:0;border-radius:12px;font-weight:bold;font-size:16px;';
-  testBtn.onclick = window.testNexoraTask;
-testBtn.style.position = 'fixed';
-testBtn.style.bottom = '85px';
-testBtn.style.left = '50%';
-testBtn.style.transform = 'translateX(-50%)';
-testBtn.style.zIndex = '99999';
-document.body.appendChild(testBtn);
+// NEXORA TASK MENU
+if (!document.getElementById('nexoraTaskMenuBtn')) {
+  const menuBtn = document.createElement('button');
+  menuBtn.id = 'nexoraTaskMenuBtn';
+  menuBtn.textContent = '☰';
+
+  menuBtn.style.cssText = `
+    position:fixed;
+    top:295px;
+    left:18px;
+    z-index:100001;
+    width:52px;
+    height:52px;
+    border:1px solid #29415b;
+    border-radius:14px;
+    background:#14243a;
+    color:#16cbd0;
+    font-size:25px;
+    cursor:pointer;
+  `;
+
+  const menu = document.createElement('div');
+  menu.id = 'nexoraTaskMenu';
+  menu.style.cssText = `
+    display:none;
+    position:fixed;
+    top:355px;
+    left:18px;
+    width:240px;
+    padding:15px;
+    background:#101d31;
+    border:1px solid #29415b;
+    border-radius:16px;
+    z-index:100000;
+    box-shadow:0 12px 35px #0008;
+  `;
+
+  menu.innerHTML = `
+    <h3 style="color:#16cbd0;margin:5px 0 15px">
+      NEXORA TASK MENU
+    </h3>
+    <button data-action="post">＋ Post a Task</button>
+    <button data-action="explore">✦ Explore Tasks</button>
+    <button data-action="published">▤ My Published Tasks</button>
+    <button data-action="submissions">⌘ My Submissions</button>
+    <button data-action="campaigns">↗ Campaigns</button>
+    <button data-action="history">◷ Task History</button>
+  `;
+
+  menu.querySelectorAll('button').forEach(btn => {
+    btn.style.cssText = `
+      display:block;width:100%;padding:12px;
+      margin:7px 0;background:#192a43;
+      color:white;border:1px solid #30445f;
+      border-radius:10px;text-align:left;
+      font-size:14px;
+    `;
+  });
+
+  menuBtn.onclick = () => {
+    menu.style.display =
+      menu.style.display === 'none' ? 'block' : 'none';
+  };
+
+  menu.addEventListener('click', event => {
+    const action = event.target.dataset.action;
+    if (!action) return;
+
+    menu.style.display = 'none';
+
+    if (action === 'post') {
+      document.getElementById('postTaskBtn')?.click();
+    } else if (action === 'explore') {
+      document.querySelector('.quick-grid')
+        ?.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      alert('এই Task Management অংশটি পরবর্তী ধাপে চালু করব।');
+    }
+  });
+
+  document.body.appendChild(menuBtn);
+  document.body.appendChild(menu);
 }
 
  document.getElementById('publicNav').hidden = true;
