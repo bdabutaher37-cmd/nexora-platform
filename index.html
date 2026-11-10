@@ -739,42 +739,26 @@ if (isOwner) {
 } else if (adminBtn) {
   adminBtn.remove();
 }
-// NEXORA TASK MENU
-if (!document.getElementById('nexoraTaskMenuBtn')) {
-  const menuBtn = document.createElement('button');
-  menuBtn.id = 'nexoraTaskMenuBtn';
-  menuBtn.textContent = '☰';
 
-  menuBtn.style.cssText = `
-    position: fixed;
-top: 20px;
-left: 24px;
-z-index: 100001;
-width: 72px;
-height: 72px;
-border: 1px solid #29415b;
-border-radius: 18px;
-background: #14243a;
-color: #16cbd0;
-font-size: 30px;
-cursor: pointer;
- `;
+// NEXORA TASK MENU
+if (!document.getElementById('nexoraTaskMenu')) {
 
   const menu = document.createElement('div');
   menu.id = 'nexoraTaskMenu';
+
   menu.style.cssText = `
     display: none;
-position: fixed;
-top: 95px;
-left: 18px;
-width: 260px;
-max-width: calc(100vw - 36px);
-padding: 15px;
-background: #101d31;
-border: 1px solid #29415b;
-border-radius: 16px;
-z-index: 100000;
-box-shadow: 0 12px 35px #0008;
+    position: fixed;
+    top: 75px;
+    left: 18px;
+    width: 260px;
+    max-width: calc(100vw - 36px);
+    padding: 15px;
+    background: #101d31;
+    border: 1px solid #29415b;
+    border-radius: 16px;
+    z-index: 100000;
+    box-shadow: 0 12px 35px #0008;
   `;
 
   menu.innerHTML = `
@@ -791,18 +775,31 @@ box-shadow: 0 12px 35px #0008;
 
   menu.querySelectorAll('button').forEach(btn => {
     btn.style.cssText = `
-      display:block;width:100%;padding:12px;
-      margin:7px 0;background:#192a43;
-      color:white;border:1px solid #30445f;
-      border-radius:10px;text-align:left;
+      display:block;
+      width:100%;
+      padding:12px;
+      margin:7px 0;
+      background:#192a43;
+      color:white;
+      border:1px solid #30445f;
+      border-radius:10px;
+      text-align:left;
       font-size:14px;
+      cursor:pointer;
     `;
   });
 
-  menuBtn.onclick = () => {
-    menu.style.display =
-      menu.style.display === 'none' ? 'block' : 'none';
-  };
+  // HEADER MENU ICON
+  const headerMenuBtn = document.querySelector('.brand .logo');
+
+  if (headerMenuBtn) {
+    headerMenuBtn.style.cursor = 'pointer';
+
+    headerMenuBtn.addEventListener('click', () => {
+      menu.style.display =
+        menu.style.display === 'none' ? 'block' : 'none';
+    });
+  }
 
   menu.addEventListener('click', event => {
     const action = event.target.dataset.action;
@@ -812,13 +809,16 @@ box-shadow: 0 12px 35px #0008;
 
     if (action === 'post') {
       document.getElementById('postTaskBtn')?.click();
+
     } else if (action === 'explore') {
       document.querySelector('.quick-grid')
         ?.scrollIntoView({ behavior: 'smooth' });
+
     } else {
       alert('এই Task Management অংশটি পরবর্তী ধাপে চালু করব।');
     }
   });
+
 
   document.body.appendChild(menuBtn);
   document.body.appendChild(menu);
